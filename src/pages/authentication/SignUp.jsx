@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import UseAuth from "../../hook/UseAuth";
 import { Link } from "react-router";
+import useAxios from "../../hook/UseAxios";
 
 export default function SignUp() {
     const { signUp, signInWithGoogle } = UseAuth();
@@ -19,20 +20,37 @@ export default function SignUp() {
 
     const [showPassword, setShowPassword] = useState(false);
     const [fieldErrors, setFieldErrors] = useState({});
-
+    const axiosSecure = useAxios();
     const onSubmit = (data) => {
         // Clear previous errors
         setFieldErrors({});
         const { email, password } = data;
         signUp(email, password)
-            .then((userCredential) => {
-                Swal.fire({
-                    title: "Success!",
-                    text: "Registration Completed 🎉",
-                    icon: "success",
-                    confirmButtonColor: "#000",
-                });
-                reset();
+            .then(async (userCredential) => {
+                const user = userCredential.user;
+                const userData = {
+                    name: `${data.firstName} ${data.lastName}`,
+                    email: user.email,
+                    photoUrl: user.photoURL || "",
+                    role: "user",
+                }
+                try {
+                    const res = await axiosSecure.post("/users", userData);
+                    console.log("Backend response:", res.data);
+                    if(res.data.insertedId){
+                        Swal.fire({
+                            title: "Success",
+                            text: "Account created successfully!",
+                            icon: "success",
+                            confirmButtonColor: "#000",
+                        });
+                        reset();
+                    }
+
+                } catch (error) {
+                    console.error("Backend error:", err);
+                }
+
             })
             .catch((error) => {
                 // Firebase error mapping
@@ -42,14 +60,24 @@ export default function SignUp() {
     };
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-            .then((result) => {
+            .then(async (result) => {
                 const user = result.user;
-                Swal.fire({
-                    title: "Success!",
-                    text: `Welcome ${user.displayName || user.email} 🎉`,
-                    icon: "success",
-                    confirmButtonColor: "#000",
-                });
+                const userData = {
+                    name: user.displayName || "No Name",
+                    email: user.email,
+                    photoUrl: user.photoURL || "",
+                    role: "user",
+                }
+                //send to backend
+                try {
+                    const res = await axiosSecure.post("/users", userData);
+                    console.log("Backend response:", res.data);
+
+                } catch (error) {
+                    console.error("Backend error:", err);
+                }
+
+
             })
             .catch((error) => {
                 setFieldErrors(error.message)
@@ -180,7 +208,7 @@ export default function SignUp() {
                     Continue with Google
                 </button>
                 <Link to="/auth/sign_in" className=" font-bold">
-                   Already You have an account? <span className="hover:underline font-bold">Sign In</span>
+                    Already You have an account? <span className="hover:underline font-bold">Sign In</span>
                 </Link>
             </div>
         </div>

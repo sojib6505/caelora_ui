@@ -5,6 +5,7 @@ import Home from "../pages/home/Home";
 import AuthLayout from "../layout/AuthLayout";
 import SignUp from "../pages/authentication/SignUp";
 import Login from "../pages/authentication/Login";
+import UserProfile from "../pages/authentication/UserProfile";
 
 const router = createBrowserRouter([
     {path:"/", Component: MainLayout,
@@ -15,8 +16,9 @@ const router = createBrowserRouter([
     },
     {path:"/auth",Component: AuthLayout,
         children:[
-            {path:"sign_up",Component: SignUp},
+            {index:true,Component: SignUp},
             {path:"sign_in",Component: Login},
+            {path:"user_profile", Component: UserProfile}
         ]
     }
 ])

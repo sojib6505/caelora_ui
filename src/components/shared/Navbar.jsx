@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router";
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import Logo from "./Logo";
+import UseAuth from "../../hook/UseAuth";
+import UseUserData from "../../hook/UseUserData";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [search, setSearch] = useState("");
+
+  const { user } = UseAuth();
+  const { userData } = UseUserData();
 
   const menuItems = [
     { name: "CATALOGUE", path: "/catalogue" },
@@ -17,10 +23,15 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleSearch = () => setShowMobileSearch(!showMobileSearch);
 
+  //  Determine if user is logged in
+  const userReady = userData || user;
+  const displayPhoto = userData?.photoURL || user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png";
+
   return (
-    <nav className="w-full px-6 py-4 flex items-center justify-between relative font-poppins">
+    <nav className="w-full px-6 py-4 flex items-center justify-between relative font-poppins bg-white shadow-sm z-50">
       {/* Logo */}
       <Logo />
+
       {/* Desktop Menu */}
       <div className="hidden md:flex items-center space-x-6">
         <ul className="flex items-center space-x-6 text-black">
@@ -55,27 +66,34 @@ export default function Navbar() {
           <FaShoppingCart />
         </NavLink>
 
-        {/* Sign Up Button */}
-        <NavLink to="auth/sign_up">
-          <button className="bg-black font-bold text-white px-4 py-2 rounded hover:bg-gray-800">
-            SIGN UP
-          </button>
-        </NavLink>
+        {/* User / Sign Up */}
+        {userReady ? (
+          <NavLink to="/auth/user_profile">
+            <img
+              src={displayPhoto}
+              alt="user"
+              className="w-10 h-10 rounded-full border-2 border-black cursor-pointer"
+            />
+          </NavLink>
+        ) : (
+          <NavLink to="/auth">
+            <button className="bg-black font-bold text-white px-4 py-2 rounded hover:bg-gray-800">
+              SIGN UP
+            </button>
+          </NavLink>
+        )}
       </div>
 
       {/* Mobile Buttons */}
       <div className="md:hidden flex items-center space-x-4">
-        {/* Search toggle */}
         <button onClick={toggleSearch} className="text-black text-lg">
           <FaSearch />
         </button>
 
-        {/* Cart Icon */}
         <NavLink to="/cart" className="text-black text-lg">
           <FaShoppingCart />
         </NavLink>
 
-        {/* Hamburger */}
         <button onClick={toggleMenu} className="text-black focus:outline-none">
           {isOpen ? (
             <svg
@@ -85,7 +103,7 @@ export default function Navbar() {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
             <svg
@@ -95,7 +113,7 @@ export default function Navbar() {
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
         </button>
@@ -135,11 +153,21 @@ export default function Navbar() {
             </li>
           ))}
           <li>
-            <NavLink to="auth/sign_up" onClick={() => setIsOpen(false)}>
-              <button className="bg-black text-white font-bold px-4 py-2 rounded hover:bg-gray-800">
-                SIGN UP
-              </button>
-            </NavLink>
+            {userReady ? (
+              <NavLink to="/auth/user_profile">
+                <img
+                  src={displayPhoto}
+                  alt="user"
+                  className="w-10 h-10 rounded-full border-2 border-black cursor-pointer"
+                />
+              </NavLink>
+            ) : (
+              <NavLink to="/auth">
+                <button className="bg-black font-bold text-white px-4 py-2 rounded hover:bg-gray-800">
+                  SIGN UP
+                </button>
+              </NavLink>
+            )}
           </li>
         </ul>
       </div>
