@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { NavLink } from "react-router";
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import Logo from "./Logo";
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
@@ -57,7 +56,7 @@ export default function Navbar() {
         </NavLink>
 
         {/* Sign Up Button */}
-        <NavLink to="/signup">
+        <NavLink to="auth/sign_up">
           <button className="bg-black font-bold text-white px-4 py-2 rounded hover:bg-gray-800">
             SIGN UP
           </button>
@@ -136,7 +135,7 @@ export default function Navbar() {
             </li>
           ))}
           <li>
-            <NavLink to="/signup" onClick={() => setIsOpen(false)}>
+            <NavLink to="auth/sign_up" onClick={() => setIsOpen(false)}>
               <button className="bg-black text-white font-bold px-4 py-2 rounded hover:bg-gray-800">
                 SIGN UP
               </button>

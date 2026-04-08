@@ -5,19 +5,19 @@ const productsData = productData
 export default function NewArrivals() {
     const navigate = useNavigate()
     return (
-        <section className="py-20 bg-white">
-            <div className="max-w-6xl mx-auto px-6">
+        <section className="py-5 md:py-10 bg-white">
+            <div className="max-w-6xl mx-auto px-2 md:px-6">
                 <div className="text-start mb-12">
-                    <h2 className="text-4xl font-extrabold text-gray-900 ">NEW ARRIVAL</h2>
+                    <h2 className="text-4xl md:text-4xl font-extrabold text-gray-900 ">NEW ARRIVAL</h2>
                     <p className="text-gray-600 font-semibold mt-2">Discover the latest trends and styles</p>
                 </div>
 
-                {/* Preview 3 products */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                    {productsData.slice(0, 3).map((product) => (
+                {/* Preview 4 products */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5">
+                    {productsData.slice(0, 4).map((product) => (
                         <div
                             key={product.id}
-                            className="bg-white rounded-sm shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                            className="bg-white shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
                         >
                             <img
                                 src={product.img}

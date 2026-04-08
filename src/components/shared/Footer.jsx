@@ -9,6 +9,7 @@ import {
   FaEnvelope,
   FaPhoneAlt,
 } from "react-icons/fa";
+import Logo from "./Logo";
 export default function Footer() {
   const phoneNumber = "8801976505265";
   const message = "Hello! I want to order from your website.";
@@ -25,6 +26,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-3">
+            <Logo className="mt-4 text-white " />
             <p className="flex items-start gap-2 text-sm font-semibold">
               <FaMapMarkerAlt className="mt-1" />
               Outlet: House-60, Block-D, 60 Rd 10, Banani, Dhaka 1213
@@ -48,6 +50,7 @@ export default function Footer() {
               <FaPinterestP className="cursor-pointer hover:text-white" />
               <FaYoutube className="cursor-pointer hover:text-white" />
             </div>
+            
           </div>
 
           {/* Policies */}
