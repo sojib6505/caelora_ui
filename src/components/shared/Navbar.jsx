@@ -16,7 +16,7 @@ export default function Navbar() {
   const menuItems = [
     { name: "CATALOGUE", path: "/catalogue" },
     { name: "FASHION", path: "/fashion" },
-    { name: "FAVOURITE", path: "/favourite" },
+    { name: "DASHBOARD", path: "/dashboard" },
     { name: "LIFESTYLE", path: "/lifestyle" },
   ];
 

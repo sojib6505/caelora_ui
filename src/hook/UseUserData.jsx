@@ -26,7 +26,7 @@ export default function UseUserData() {
       }
     } catch (err) {
       console.error(err);
-      Swal.fire("Error", "Failed to load user data", "error");
+      // Swal.fire("Error", "Failed to load user data", "error");
     } finally {
       setUserLoading(false);
     }

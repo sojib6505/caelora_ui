@@ -1,9 +1,25 @@
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import productData from "../../api/productData"
+import { useQuery } from "@tanstack/react-query"
+import useAxios from "../../hook/UseAxios"
 
 const productsData = productData
 export default function NewArrivals() {
-    const navigate = useNavigate()
+    const axiosSecure = useAxios();
+    const navigate = useNavigate();
+    const {
+        data: products = [],
+        isLoading,
+        isError,
+        error,
+    } = useQuery({
+        queryKey: ["products"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/products");
+            return res.data;
+        }
+    })
+
     return (
         <section className="py-5 md:py-10 bg-white">
             <div className="max-w-6xl mx-auto px-2 md:px-6">
@@ -14,13 +30,14 @@ export default function NewArrivals() {
 
                 {/* Preview 4 products */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5">
-                    {productsData.slice(0, 4).map((product) => (
-                        <div
-                            key={product.id}
+                    { products.slice(0, 4).map((product) => (
+                        <Link to={`/product/${product._id}`}>
+                            <div
+                            key={product._id}
                             className="bg-white shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
                         >
                             <img
-                                src={product.img}
+                                src={product.images[0]}
                                 alt={product.name}
                                 className="w-full h-70 object-center "
                             />
@@ -29,6 +46,7 @@ export default function NewArrivals() {
                                 <p className="text-gray-600 font-semibold mt-1">Tk {product.price}</p>
                             </div>
                         </div>
+                        </Link>
                     ))}
                 </div>
 

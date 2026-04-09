@@ -7,7 +7,7 @@ import UseAuth from "../../hook/UseAuth";
 import { useNavigate, Link } from "react-router";
 
 export default function Login() {
-  const { login, signInWithGoogle, resetPassword } = UseAuth();
+  const { signIn, signInWithGoogle, resetPassword } = UseAuth();
   const navigate = useNavigate();
 
   const {
@@ -27,7 +27,7 @@ export default function Login() {
     setFieldErrors({});
     const { email, password } = data;
 
-    login(email, password)
+    signIn(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         Swal.fire({
@@ -131,10 +131,7 @@ export default function Login() {
               <p className="text-red-500 font-medium text-sm mt-1">{getError("password")}</p>
             )}
           </div>
-         {/* Forgot Password */}
-           <button onClick={handleForgotPassword} className="hover:underline font-bold">
-            Forgot Password?
-          </button>
+
           {/* Submit */}
           <button
             type="submit"
@@ -142,10 +139,14 @@ export default function Login() {
           >
             Login
           </button>
+          {/* Forgot Password */}
+          <button onClick={handleForgotPassword} className="hover:underline font-bold">
+            Forgot Password?
+          </button>
         </form>
         {/* SignUp */}
         <div className="flex justify-between mt-3 text-sm text-gray-600">
-        
+
           <Link to="/auth/sign_up" className=" font-bold">
             You have no account? <span className="hover:underline md:font-bold">Sign Up</span>
           </Link>
