@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxios from "../../hook/UseAxios";
+import UseUploadImage from "../../hook/UseUploadImage";
 
 
 export default function AddAdminProduct() {
@@ -12,7 +13,7 @@ export default function AddAdminProduct() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const productId = searchParams.get("id");
-
+  const {uploadImage} = UseUploadImage()
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -42,18 +43,11 @@ export default function AddAdminProduct() {
       .finally(() => setLoading(false));
   }, [productId]);
 
-  // Upload single image to imgbb
-  const uploadImage = async (file) => {
+  // Upload  image 
+  const handleUploadImage = async (file) => {
     if (!file) return "";
-    const formData = new FormData();
-    formData.append("image", file);
-    const key = import.meta.env.VITE_IMGBB_KEY;
-    const res = await fetch(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_UPLOAD_KEY}`, {
-      method: "POST",
-      body: formData,
-    });
-    const data = await res.json();
-    return data.data.url;
+    const imagesUrl = await uploadImage(file);
+    return imagesUrl;
   };
 
   // Mutation
@@ -69,19 +63,27 @@ export default function AddAdminProduct() {
     },
   });
 
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      // Upload only changed images
-      const uploadedImages = await Promise.all(
-        product.images.map((img) => (img instanceof File ? uploadImage(img) : img))
-      );
+const handleSubmit = async () => {
+  setLoading(true);
+  try {
+    const uploadedImages = await Promise.all(
+      product.images.map(async (img) => {
+        if (img instanceof File) {
+          return await handleUploadImage(img);
+        }
+        return img;
+      })
+    );
 
-      mutation.mutate({ ...product, images: uploadedImages });
-    } finally {
-      setLoading(false);
-    }
-  };
+    mutation.mutate({ ...product, images: uploadedImages });
+
+  } catch (err) {
+    console.log(err);
+    Swal.fire("Error", "Image upload failed", "error");
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (loading) return <p className="p-4 text-center">Loading...</p>;
 

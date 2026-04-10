@@ -4,12 +4,13 @@ import UseAuth from "../../hook/UseAuth";
 import Swal from "sweetalert2";
 import UseUserData from "../../hook/UseUserData";
 import useAxios from "../../hook/UseAxios";
+import UseUploadImage from "../../hook/UseUploadImage";
 
 export default function UserProfile() {
   const { logOut, user, loading } = UseAuth();
   const { userData, userLoading, updateUserData } = UseUserData();
   const axiosSecure = useAxios();
-
+  const { uploadImage } = UseUploadImage();
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -49,21 +50,15 @@ export default function UserProfile() {
   const handlePhotoUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
-    const form = new FormData();
-    form.append("image", file);
-
     try {
-      const res = await fetch(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_UPLOAD_KEY}`,
-        { method: "POST", body: form }
-      );
-      const data = await res.json();
+      const imageUrl = await uploadImage(file);
 
-      if (data.success) {
-        setFormData((prev) => ({ ...prev, photoURL: data.data.url }));
-        Swal.fire("Uploaded!", "Photo uploaded successfully", "success");
-      }
+      setFormData((prev) => ({
+        ...prev,
+        photoURL: imageUrl,
+      }));
+
+      Swal.fire("Success", "Photo uploaded", "success");
     } catch (err) {
       console.error(err);
       Swal.fire("Error", "Photo upload failed", "error");
@@ -86,12 +81,11 @@ export default function UserProfile() {
       };
 
       const res = await axiosSecure.put(`/users/${user.email}`, payload);
-
       // proper success check
       if (res.data.modifiedCount > 0 || res.data.upsertedCount > 0) {
         Swal.fire("Success", "Profile updated successfully", "success");
         setIsEdit(false);
-        await updateUserData(); 
+        await updateUserData();
       }
     } catch (err) {
       console.error(err);
@@ -134,7 +128,7 @@ export default function UserProfile() {
           </li>
           <li
             onClick={logOut}
-            className="flex font-medium items-center gap-2 text-red-500 cursor-pointer"
+            className="flex  font-medium items-center gap-2 text-red-500 cursor-pointer"
           >
             <FaSignOutAlt /> Logout
           </li>
@@ -148,7 +142,7 @@ export default function UserProfile() {
             <h2 className="text-xl font-bold">Profile Info</h2>
             <button
               onClick={() => setIsEdit(!isEdit)}
-              className="flex font-medium items-center gap-2 text-primary"
+              className="flex font-medium items-center gap-2 text-primary cursor-pointer"
             >
               <FaEdit /> {isEdit ? "Cancel" : "Edit"}
             </button>
@@ -171,7 +165,7 @@ export default function UserProfile() {
                   key={key}
                   type="text"
                   name={key}
-                  value={formData[key] || ""} // ✅ FIXED
+                  value={formData[key] || ""} 
                   onChange={handleChange}
                   placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
                   className="w-full border p-2 rounded font-medium"
@@ -198,7 +192,7 @@ export default function UserProfile() {
               <div className="col-span-1 md:col-span-2">
                 <button
                   onClick={handleUpdate}
-                  className="bg-primary font-medium text-white px-4 py-2 rounded w-full"
+                  className="bg-primary font-medium text-white px-4 py-2 rounded w-full cursor-pointer"
                 >
                   Save Changes
                 </button>

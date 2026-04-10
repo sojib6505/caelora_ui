@@ -1,26 +1,31 @@
 import axios from "axios";
 import UseAuth from "./UseAuth";
+import { useMemo } from "react";
 
-export default function useAxios() {
-  const { user } = UseAuth(); 
+export default function UseAxios() {
+  const { user } = UseAuth();
 
-  // Axios instance
-  const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000', 
-  });
+  const axiosSecure = useMemo(() => {
+    const instance = axios.create({
+      baseURL: "http://localhost:5000",
+    });
 
-  // Request interceptor
-  axiosSecure.interceptors.request.use(
-    (config) => {
-      if (user?.accessToken) {
-        config.headers.authorization = `Bearer ${user.accessToken}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+    // request interceptor
+    instance.interceptors.request.use(
+      (config) => {
+        const token = user?.accessToken;
+
+        if (token) {
+          config.headers.authorization = `Bearer ${token}`;
+        }
+
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+
+    return instance;
+  }, [user?.accessToken]);
 
   return axiosSecure;
 }

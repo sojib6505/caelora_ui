@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxios from "../../hook/UseAxios";
+import UseAddToCart from "../../hook/UseAddToCart";
 
 export default function ProductDetails() {
     const { id } = useParams();
     const axiosSecure = useAxios();
     const [selectedImage, setSelectedImage] = useState("");
+    const { addToCart, isPending } = UseAddToCart()
 
     // Fetch single product
     const { data: product = {}, isLoading } = useQuery({
@@ -35,9 +37,6 @@ export default function ProductDetails() {
 
     const mainImage = selectedImage || images[0];
 
-    const handleAddToCart = () => {
-        Swal.fire("Added!", "Product added to cart", "success");
-    };
 
     const handleBuyNow = () => {
         Swal.fire("Success!", "Proceeding to checkout...", "success");
@@ -132,10 +131,10 @@ export default function ProductDetails() {
                     {/* Buttons */}
                     <div className="mt-6 flex gap-4">
                         <button
-                            onClick={handleAddToCart}
+                            onClick={()=> addToCart(product)} disabled={isPending}
                             className="flex-1 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition"
                         >
-                            Add to Cart
+                            {isPending ? "Adding..." : "Add to Cart"}
                         </button>
 
                         <button

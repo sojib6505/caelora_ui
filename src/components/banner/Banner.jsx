@@ -25,7 +25,7 @@ export default function Banner() {
             Live for Influential and Innovative fashion!..
           </p>
 
-          <button className="bg-black font-bold ml-5 md:ml-0 text-white px-6 py-3 rounded-md w-fit mt-4 hover:bg-gray-800 transition">
+          <button className="bg-black cursor-pointer font-bold ml-5 md:ml-0 text-white px-6 py-3 rounded-md w-fit mt-4 hover:bg-gray-800 transition">
             Shop Now
           </button>
         </div>

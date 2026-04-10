@@ -11,13 +11,15 @@ import Users from "../pages/dashboard/Users";
 import AdminProducts from "../pages/dashboard/AdminProducts";
 import AddAdminProduct from "../pages/dashboard/AddAdminProduct";
 import ProductDetails from "../pages/allProducts/ProductDetails";
+import Cart from "../pages/allProducts/Cart";
 
 const router = createBrowserRouter([
     {path:"/", Component: MainLayout,
         children:[
             {path:"/", Component: Home},
             {path:"all_products", Component: AllProduct},
-            {path:"/product/:id", Component: ProductDetails}
+            {path:"/product/:id", Component: ProductDetails},
+            {path:"cart", Component: Cart}
         ]
     },
     {path:"/auth",Component: AuthLayout,

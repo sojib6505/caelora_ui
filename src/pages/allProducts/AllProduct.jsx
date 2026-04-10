@@ -1,10 +1,18 @@
 
-import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hook/UseAxios"
-import { Link, Links } from "react-router";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { Link } from "react-router";
+import UseAddToCart from "../../hook/UseAddToCart";
+import useAxios from "../../hook/UseAxios";
+import { useState } from "react";
+import { FaArrowRight } from "react-icons/fa";
+
 
 export default function AllProduct() {
-    const axiosSecure = useAxios();
+    const axiosSecure = useAxios()
+    const { addToCart, isPending } = UseAddToCart()
+    const [visibleCount, setVisibleCount] = useState(4)
+
     const {
         data: products = [],
         isLoading,
@@ -18,6 +26,7 @@ export default function AllProduct() {
         }
     })
 
+    const visibleProducts = products.slice(0, visibleCount);
     if (isLoading) {
         return (
             <div className="flex justify-center mt-10">
@@ -35,20 +44,21 @@ export default function AllProduct() {
     }
     console.log(products)
     return (
-        <Link>
-            <section className="md:py-10 bg-white">
-                <div className="max-w-6xl mx-auto px-2 md:px-6">
-                    <div className="text-start mb-12">
-                        <h2 className="text-2xl md:text-4xl  font-extrabold text-gray-900 bg-[#EBD96B] inline px-2 py-1">ALL NEW ARRIVALS</h2>
-                        <p className="text-gray-60 font-semibold mt-2">Check out all the latest products</p>
-                    </div>
-                    {/* All products grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
-                        {products.map((product) => (
+
+        <section className="md:py-10 bg-white">
+            <div className="max-w-6xl mx-auto px-2 md:px-6">
+                <div className="text-start mb-12">
+                    <h2 className="text-2xl md:text-4xl  font-extrabold text-gray-900 bg-[#EBD96B] inline px-2 py-1">ALL NEW ARRIVALS</h2>
+                    <p className="text-gray-60 font-semibold mt-2">Check out all the latest products</p>
+                </div>
+                {/* All products grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+                    {visibleProducts.map((product) => (
+                        <div className="bg-white  shadow-md hover:shadow-xl" key={product._id}>
                             <Link to={`/product/${product._id}`}>
                                 <div
-                                    key={product._id}
-                                    className="bg-white  shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+
+                                    className="overflow-hidden  transition-shadow duration-300"
                                 >
                                     <img
                                         src={product.images[0]}
@@ -58,16 +68,36 @@ export default function AllProduct() {
                                     <div className="p-4 flex flex-col items-center">
                                         <h3 className="md:text-lg font-semibold text-gray-900">{product.name}</h3>
                                         <p className="text-gray-600 font-semibold ">Tk {product.price}</p>
-                                        <button className=" text-sm bg-black text-white px-2 md:px-4 font-bold py-2 rounded hover:bg-gray-800 transition">
-                                            Add to Cart
-                                        </button>
+
                                     </div>
                                 </div>
                             </Link>
-                        ))}
-                    </div>
+                            <div className="flex justify-center">
+                                <button onClick={() => {
+                                    addToCart(product)
+                                }} disabled={isPending} className="ml-2 mb-2 text-sm hover:bg-gray-800 bg-black text-white px-2 md:px-4 font-bold py-2 rounded cursor-pointer   transition">
+                                    {isPending ? "Adding..." : "Add to Cart"}
+                                </button>
+
+                            </div>
+                        </div>
+
+                    ))}
                 </div>
-            </section>
-        </Link>
+            </div>
+            {
+                visibleCount < products.length && (
+                    <div className="flex justify-center mt-6">
+                        <button className="font-medium flex gap-2 items-center cursor-pointer"
+                            onClick={() => setVisibleCount(prev => prev + 12)}
+                        >
+                            See More
+                            <FaArrowRight />
+                        </button>
+                    </div>
+                )
+            }
+        </section>
+
     )
 }

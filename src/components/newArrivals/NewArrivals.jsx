@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router"
-import productData from "../../api/productData"
 import { useQuery } from "@tanstack/react-query"
 import useAxios from "../../hook/UseAxios"
+import { FaArrowRight } from "react-icons/fa";
 
-const productsData = productData
+
 export default function NewArrivals() {
     const axiosSecure = useAxios();
     const navigate = useNavigate();
@@ -19,7 +19,21 @@ export default function NewArrivals() {
             return res.data;
         }
     })
+    if (isLoading) {
+        return (
+            <div className="text-center mt-10">
+                Loading...
+            </div>
+        );
+    }
 
+    if (isError) {
+        return (
+            <div className="text-red-500 text-center mt-10">
+                {error.message}
+            </div>
+        );
+    }
     return (
         <section className="py-5 md:py-10 bg-white">
             <div className="max-w-6xl mx-auto px-2 md:px-6">
@@ -30,22 +44,26 @@ export default function NewArrivals() {
 
                 {/* Preview 4 products */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5">
-                    { products.slice(0, 4).map((product) => (
-                        <Link to={`/product/${product._id}`}>
-                            <div
-                            key={product._id}
-                            className="bg-white shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                        >
-                            <img
-                                src={product.images[0]}
-                                alt={product.name}
-                                className="w-full h-70 object-center "
-                            />
-                            <div className="p-4 flex flex-col items-center">
-                                <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-                                <p className="text-gray-600 font-semibold mt-1">Tk {product.price}</p>
+                    {products?.slice(0, 4)?.map((product) => (
+                        <Link to={`/product/${product._id}`} key={product._id}>
+                            <div className="bg-white shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+
+                                <img
+                                    src={product.images[0]}
+                                    alt={product.name}
+                                    className="w-full h-64 object-cover"
+                                />
+
+                                <div className="p-4 flex flex-col items-center">
+                                    <h3 className="text-lg font-semibold text-gray-900">
+                                        {product.name}
+                                    </h3>
+                                    <p className="text-gray-600 font-semibold mt-1">
+                                        Tk {product.price}
+                                    </p>
+                                </div>
+
                             </div>
-                        </div>
                         </Link>
                     ))}
                 </div>
@@ -54,9 +72,10 @@ export default function NewArrivals() {
                 <div className="text-center flex justify-end mt-8">
                     <button
                         onClick={() => navigate("/all_products")}
-                        className="bg-black  font-bold text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+                        className="  font-bold flex gap-2 items-center cursor-pointer"
                     >
                         See More
+                        <FaArrowRight />
                     </button>
                 </div>
             </div>

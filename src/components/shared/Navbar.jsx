@@ -4,6 +4,7 @@ import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import Logo from "./Logo";
 import UseAuth from "../../hook/UseAuth";
 import UseUserData from "../../hook/UseUserData";
+import UseCart from "../../hook/UseCart";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function Navbar() {
 
   const { user } = UseAuth();
   const { userData } = UseUserData();
-
+  const { cartCount } = UseCart();
   const menuItems = [
     { name: "CATALOGUE", path: "/catalogue" },
     { name: "FASHION", path: "/fashion" },
@@ -62,8 +63,14 @@ export default function Navbar() {
         </div>
 
         {/* Cart Icon */}
-        <NavLink to="/cart" className="text-black text-xl ml-4 hover:text-gray-600">
+        <NavLink to="/cart" className="text-black text-lg relative">
           <FaShoppingCart />
+
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white font-medium px-2 rounded-full text-xs">
+              {cartCount}
+            </span>
+          )}
         </NavLink>
 
         {/* User / Sign Up */}
@@ -90,8 +97,14 @@ export default function Navbar() {
           <FaSearch />
         </button>
 
-        <NavLink to="/cart" className="text-black text-lg">
+        <NavLink to="/cart" className="text-black text-lg relative">
           <FaShoppingCart />
+
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white font-medium px-2 rounded-full text-xs">
+              {cartCount}
+            </span>
+          )}
         </NavLink>
 
         <button onClick={toggleMenu} className="text-black focus:outline-none">
@@ -134,9 +147,8 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-10 ${
-          isOpen ? "translate-y-0 opacity-100" : "-translate-y-96 opacity-0 pointer-events-none"
-        }`}
+        className={`md:hidden absolute top-full left-0 w-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-10 ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-96 opacity-0 pointer-events-none"
+          }`}
       >
         <ul className="flex flex-col items-center space-y-4 py-4 text-black">
           {menuItems.map((item) => (
