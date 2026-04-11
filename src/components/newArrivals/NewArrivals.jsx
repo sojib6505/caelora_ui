@@ -55,10 +55,10 @@ export default function NewArrivals() {
                                 />
 
                                 <div className="p-4 flex flex-col items-center">
-                                    <h3 className="text-lg font-semibold text-gray-900">
+                                    <h3 className="md:text-lg font-semibold text-gray-900">
                                         {product.name}
                                     </h3>
-                                    <p className="text-gray-600 font-semibold mt-1">
+                                    <p className="text-gray-600 font-semibold ">
                                         Tk {product.price}
                                     </p>
                                 </div>

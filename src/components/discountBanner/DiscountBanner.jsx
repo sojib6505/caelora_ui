@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import UseAxios from "../../hook/UseAxios";
 import bannerData from "../../api/discount";
+import { Link } from "react-router";
+
 
 export default function DiscountBanner() {
-    const banner = bannerData;
+    const axiosSecure = UseAxios();
+    const bannerFakeData = bannerData;
+    const [banner, setBanner] = useState(null);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const fatchBanner = async () => {
+            try {
+                const res = await axiosSecure.get("/banner");
+                setBanner(res.data.data);
+                setLoading(false);
+            } catch (error) {
+                setBanner(bannerFakeData )
+                setLoading(false)
+            }
+        }
+        fatchBanner();
+    }, [axiosSecure])
+    //loading
+    if (loading) {
+        return (
+            <div className="text-center py-20 font-bold">
+                Loading Banner...
+            </div>
+        );
+    }
 
     return (
         <section className="relative py-5 md:py-20 flex items-center justify-center"
@@ -16,7 +43,7 @@ export default function DiscountBanner() {
                     <img
                         src={banner.image}
                         alt={banner.title}
-                        className="w-full max-w-sm object-center h-80 rounded shadow-lg"
+                        className="w-full  max-w-sm object-center h-80 rounded shadow-lg"
                     />
                 </div>
 
@@ -24,19 +51,19 @@ export default function DiscountBanner() {
                 <div className="md:w-1/2 text-center md:text-left space-y-4">
                     <h2 className="text-xl md:text-4xl bg-white inline px-2 py-1 font-bold text-black">
                         {banner.title}
-                    </h2> 
+                    </h2>
                     <p className=" mt-5 font-bold md:text-2xl">{banner.subtitle}</p>
-                     <p className="text-xl font-bold text-gray-800">
+                    <p className="text-xl font-bold text-gray-800">
                         Offer: {banner.startDate} - {banner.endDate}
                     </p>
                     <p className=" font-semibold md:text-xl">{banner.description}</p>
-                   
-                    <a
-                        href={banner.buttonLink}
+
+                    <Link 
+                        to="/all_products"
                         className="bg-black font-bold text-white px-6 py-3 rounded hover:bg-gray-800 transition inline-block mt-2"
                     >
-                        {banner.buttonText}
-                    </a>
+                        Shop Now
+                    </Link>
                 </div>
             </div>
         </section>

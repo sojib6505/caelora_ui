@@ -4,11 +4,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import UseAuth from "../../hook/UseAuth";
-import { useNavigate, Link } from "react-router";
+import { useNavigate, Link, useLocation } from "react-router";
 
 export default function Login() {
   const { signIn, signInWithGoogle, resetPassword } = UseAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"
 
   const {
     register,
@@ -36,7 +38,7 @@ export default function Login() {
           icon: "success",
           confirmButtonColor: "#000",
         });
-        navigate("/");
+        navigate("/");       
       })
       .catch((error) => {
         setFieldErrors({ firebase: error.message });
@@ -54,7 +56,7 @@ export default function Login() {
           icon: "success",
           confirmButtonColor: "#000",
         });
-        navigate("/");
+        navigate(from,{replace:true});
       })
       .catch((error) => {
         setFieldErrors({ firebase: error.message });

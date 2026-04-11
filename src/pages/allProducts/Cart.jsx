@@ -3,12 +3,14 @@ import UseAxios from "../../hook/UseAxios";
 import UseCart from "../../hook/UseCart";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import UseAuth from "../../hook/UseAuth";
 
 export default function Cart() {
   const { cart } = UseCart();
   const navigate = useNavigate();
   const axiosSecure = UseAxios()
   const queryClient = useQueryClient()
+  const {user} = UseAuth()
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -39,7 +41,10 @@ export default function Cart() {
       });
     }
   })
-
+  //order]
+  const handleOrder = () => {
+    navigate(`/payment?email=${user?.email}`)
+  }
   const total = cart?.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -125,34 +130,34 @@ export default function Cart() {
               Order Summary
             </h2>
 
-            <div className="space-y-2 text-gray-600">
-              <div className="flex justify-between">
+            <div className="space-y-2 text-gray-600 font-medium">
+              <div className="flex justify-between ">
                 <span>Subtotal</span>
                 <span>${total}</span>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between ">
                 <span>Shipping</span>
                 <span>Free</span>
               </div>
 
               <hr />
 
-              <div className="flex justify-between font-bold text-lg">
+              <div className="flex  justify-between font-bold text-lg">
                 <span>Total</span>
                 <span>${total}</span>
               </div>
             </div>
 
             {/* PAY BUTTON */}
-            <button className="mt-6 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-              💳 Pay Now
+            <button onClick={handleOrder} className="mt-6 w-full font-medium bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+              💳 Order Now
             </button>
 
-            {/* Optional Checkout */}
+            {/* Optional Checkout
             <button className="mt-3 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition">
               Checkout
-            </button>
+            </button> */}
           </div>
 
         </div>

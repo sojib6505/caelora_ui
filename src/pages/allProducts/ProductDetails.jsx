@@ -1,7 +1,7 @@
-import { useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import Swal from "sweetalert2";
+
 import useAxios from "../../hook/UseAxios";
 import UseAddToCart from "../../hook/UseAddToCart";
 
@@ -9,7 +9,8 @@ export default function ProductDetails() {
     const { id } = useParams();
     const axiosSecure = useAxios();
     const [selectedImage, setSelectedImage] = useState("");
-    const { addToCart, isPending } = UseAddToCart()
+    const { addToCart, isPending } = UseAddToCart();
+    const navigate = useNavigate();
 
     // Fetch single product
     const { data: product = {}, isLoading } = useQuery({
@@ -38,8 +39,8 @@ export default function ProductDetails() {
     const mainImage = selectedImage || images[0];
 
 
-    const handleBuyNow = () => {
-        Swal.fire("Success!", "Proceeding to checkout...", "success");
+    const handleOrder = () => {
+        navigate(`/payment?${id}`)
     };
 
     return (
@@ -131,17 +132,17 @@ export default function ProductDetails() {
                     {/* Buttons */}
                     <div className="mt-6 flex gap-4">
                         <button
-                            onClick={()=> addToCart(product)} disabled={isPending}
+                            onClick={() => addToCart(product)} disabled={isPending}
                             className="flex-1 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition"
                         >
                             {isPending ? "Adding..." : "Add to Cart"}
                         </button>
 
                         <button
-                            onClick={handleBuyNow}
+                            onClick={handleOrder}
                             className="flex-1 bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition"
                         >
-                            Buy Now
+                            Order Now
                         </button>
                     </div>
                 </div>

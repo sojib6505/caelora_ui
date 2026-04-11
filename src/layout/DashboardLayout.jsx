@@ -11,13 +11,14 @@ import {
 } from "react-icons/fa";
 import UseAuth from "../hook/UseAuth";
 import Navbar from "../components/shared/Navbar";
+import { AiFillEdit } from "react-icons/ai";
 
 export default function DashboardLayout() {
   const [isOpen, setIsOpen] = useState(false);
   const { logOut } = UseAuth();
 
   const menuItems = [
-    { name: "Dashboard", path: "/dashboard/products", icon: <FaTachometerAlt /> },
+    { name: "Edit Banner", path: "/dashboard/edit_banner", icon: <AiFillEdit /> },
     { name: "Products", path: "/dashboard/admin_products", icon: <FaBox /> },
     { name: "Orders", path: "/dashboard/orders", icon: <FaShoppingCart /> },
     { name: "Users", path: "/dashboard", icon: <FaUsers /> },

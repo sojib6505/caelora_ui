@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import Logo from "./Logo";
 import UseAuth from "../../hook/UseAuth";
@@ -10,26 +10,31 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [search, setSearch] = useState("");
-
   const { user } = UseAuth();
   const { userData } = UseUserData();
+  const navigate = useNavigate();
+  const isAdmin = userData?.role === "admin"
   const { cartCount } = UseCart();
   const menuItems = [
-    { name: "CATALOGUE", path: "/catalogue" },
-    { name: "FASHION", path: "/fashion" },
-    { name: "DASHBOARD", path: "/dashboard" },
-    { name: "LIFESTYLE", path: "/lifestyle" },
+    { name: "HOME", path: "/" },
+    { name: "ALL PRODUCTS", path: "/all_products" },
+    ...(isAdmin ? [{ name: "DASHBOARD", path: "/dashboard" }] : []),
+    // { name: "LIFESTYLE", path: "/lifestyle" },
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleSearch = () => setShowMobileSearch(!showMobileSearch);
 
+  const handleSearch = () => {
+    navigate("/all_products");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   //  Determine if user is logged in
   const userReady = userData || user;
   const displayPhoto = userData?.photoURL || user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png";
 
   return (
-    <nav className="w-full px-6 py-4 flex items-center justify-between relative font-poppins bg-white shadow-sm z-50">
+    <nav className="w-full px-6 py-4 flex items-center justify-between font-poppins bg-white shadow-sm sticky top-0  z-50">
       {/* Logo */}
       <Logo />
 
@@ -59,7 +64,7 @@ export default function Navbar() {
             onChange={(e) => setSearch(e.target.value)}
             className="pl-3 pr-10 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
           />
-          <FaSearch className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500" />
+          <FaSearch onClick={handleSearch} className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
 
         {/* Cart Icon */}
