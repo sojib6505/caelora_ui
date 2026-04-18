@@ -43,7 +43,7 @@ export default function Cart() {
   })
   //order]
   const handleOrder = () => {
-    navigate(`/payment?email=${user?.email}`)
+    navigate(`/payment?type=cart`)
   }
   const total = cart?.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -76,7 +76,7 @@ export default function Cart() {
 
                 {/* Image */}
                 <img
-                  src={item.image}
+                  src={item.images}
                   className="w-24 h-24 object-cover rounded-lg"
                 />
 
@@ -86,11 +86,11 @@ export default function Cart() {
                     {item.name}
                   </h2>
 
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 font-medium">
                     Price: ${item.price}
                   </p>
 
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 font-medium">
                     Quantity: {item.quantity}
                   </p>
 

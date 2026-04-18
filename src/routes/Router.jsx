@@ -16,6 +16,8 @@ import PrivateRoutes from "./PrivateRoutes";
 import AdminRoute from "./AdminRoute";
 import EditDiscountBanner from "../pages/dashboard/EditDiscountBanner";
 import PaymentPage from "../pages/allProducts/PaymentPage";
+import MyOrder from "../pages/myOrder/MyOrder";
+import AdminOrder from "../pages/dashboard/AdminOrder";
 
 
 const router = createBrowserRouter([
@@ -29,6 +31,9 @@ const router = createBrowserRouter([
             </PrivateRoutes>},
             {path:"/payment",element: <PrivateRoutes>
                 <PaymentPage></PaymentPage>
+            </PrivateRoutes>},
+            {path:"/my_order",element:<PrivateRoutes>
+                <MyOrder></MyOrder>
             </PrivateRoutes>}
         ]
     },
@@ -46,7 +51,8 @@ const router = createBrowserRouter([
             {index:true, Component: Users},
             {path:"admin_products", Component: AdminProducts},
             {path:"add_admin_product" , Component: AddAdminProduct},
-            {path:"edit_banner",Component: EditDiscountBanner}
+            {path:"edit_banner",Component: EditDiscountBanner},
+            {path:"admin_order",Component:AdminOrder}
         ]
     }
 ])

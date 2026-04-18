@@ -11,7 +11,7 @@ import { FaArrowRight } from "react-icons/fa";
 export default function AllProduct() {
     const axiosSecure = useAxios()
     const { addToCart, isPending } = UseAddToCart()
-    const [visibleCount, setVisibleCount] = useState(4)
+    const [visibleCount, setVisibleCount] = useState(12)
 
     const {
         data: products = [],

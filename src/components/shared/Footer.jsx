@@ -8,10 +8,12 @@ import {
   FaMapMarkerAlt,
   FaEnvelope,
   FaPhoneAlt,
+  FaTiktok,
 } from "react-icons/fa";
 import Logo from "./Logo";
+import { Link } from "react-router";
 export default function Footer() {
-  const phoneNumber = "8801976505265";
+  const phoneNumber = "8801601794299";
   const message = "Hello! I want to order from your website.";
 
   const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
@@ -29,26 +31,24 @@ export default function Footer() {
             <Logo className="mt-4 text-white " />
             <p className="flex items-start gap-2 text-sm font-semibold">
               <FaMapMarkerAlt className="mt-1" />
-              Outlet: House-60, Block-D, 60 Rd 10, Banani, Dhaka 1213
+              Outlet: Mirpur - 13, Dhaka, Bangladesh
             </p>
 
             <p className="flex items-center gap-2 text-sm font-semibold">
               <FaEnvelope />
-              support@kaelora-bd.com
+              officialkaelora@gmail.com
             </p>
 
             <p className="flex items-center gap-2 text-sm font-semibold">
               <FaPhoneAlt />
-              +8801976505265
+              +8801601794299
             </p>
 
             {/* Social */}
             <div className="flex gap-4 text-lg mt-4">
-              <FaFacebookF className="cursor-pointer hover:text-white" />
-              <FaInstagram className="cursor-pointer hover:text-white" />
-              <FaLinkedinIn className="cursor-pointer hover:text-white" />
-              <FaPinterestP className="cursor-pointer hover:text-white" />
-              <FaYoutube className="cursor-pointer hover:text-white" />
+             <a href="https://www.facebook.com/kaelorabd"> <FaFacebookF className="cursor-pointer hover:text-white" /></a>
+              <a href="https://www.instagram.com/kaelorabd"><FaInstagram className="cursor-pointer hover:text-white" /></a>
+              <a href="https://www.tiktok.com/@kaelorabd"><FaTiktok className="cursor-pointer hover:text-white" /></a>
             </div>
             
           </div>
@@ -72,13 +72,11 @@ export default function Footer() {
           {/* Quick Link */}
           <div>
             <h3 className="text-white mb-4 font-semibold">Quick Link</h3>
-            <ul className="space-y-2 text-sm">
-              <li className="hover:text-white cursor-pointer font-semibold">About Us</li>
-              <li className="hover:text-white cursor-pointer font-semibold">Manifesto</li>
-              <li className="hover:text-white cursor-pointer font-semibold">News Feed</li>
-              <li className="hover:text-white cursor-pointer font-semibold">Klothen Outlet</li>
-              <li className="hover:text-white cursor-pointer font-semibold">Contact Us</li>
-            </ul>
+            <div className="space-y-2 grid text-sm">
+              <Link to="/" className="hover:text-white cursor-pointer font-semibold">Home</Link>
+              <Link to="/all_products" className="hover:text-white cursor-pointer font-semibold">ALL PRODUCTS</Link>
+              <Link to="/my_order" className="hover:text-white cursor-pointer font-semibold">My Order</Link>
+            </div>
           </div>
 
           {/* Other Links */}
@@ -97,31 +95,12 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-white mb-4 font-semibold">Newsletter Signup</h3>
-
-            <div className="flex items-center bg-[#1a1a1a] rounded overflow-hidden">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="bg-transparent px-3 py-2 text-sm outline-none w-full"
-              />
-              <button className="bg-white text-black px-3 py-2 text-sm">
-                ➤
-              </button>
-            </div>
-
-            <p className="mt-4 text-sm font-semibold">
-              Trade License: TRAD/DNCC/048813/2022
-            </p>
-
-            <p className="text-sm mt-1 font-semibold">BIN: 004576033-0101</p>
-
             {/* Footer WhatsApp */}
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-green-400 hover:text-green-500 text-sm"
+              className="mt-4 inline-flex font-medium items-center gap-2 text-green-400 hover:text-green-500 text-sm"
             >
               <FaWhatsapp />
               Chat on WhatsApp

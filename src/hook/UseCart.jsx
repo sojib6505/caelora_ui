@@ -1,5 +1,5 @@
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import UseAuth from "./UseAuth"
 import UseAxios from "./UseAxios";
 

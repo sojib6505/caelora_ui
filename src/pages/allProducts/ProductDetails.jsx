@@ -15,13 +15,16 @@ export default function ProductDetails() {
     // Fetch single product
     const { data: product = {}, isLoading } = useQuery({
         queryKey: ["product", id],
+        enabled: !!id,
         queryFn: async () => {
             const res = await axiosSecure.get(`/products/${id}`);
             return res.data;
         },
     });
 
-    if (isLoading) return <p className="text-center p-5">Loading...</p>;
+    if (isLoading) {
+        return <p className="text-center p-5">Loading...</p>;
+    }
 
     const {
         name,
@@ -36,12 +39,25 @@ export default function ProductDetails() {
         images = [],
     } = product;
 
-    const mainImage = selectedImage || images[0];
+    const mainImage = selectedImage || images?.[0] || "";
 
-
+    // BUY NOW HANDLER (FIXED)
     const handleOrder = () => {
-        navigate(`/payment?${id}`)
+        navigate(`/payment?type=single&id=${id}`);
     };
+
+    // ADD TO CART SAFE HANDLER
+    // const handleAddToCart = () => {
+    //     if (!product) return;
+
+    //     addToCart({
+    //         productId: id,
+    //         name,
+    //         price,
+    //         image: mainImage,
+    //         quantity: 1
+    //     });
+    // };
 
     return (
         <div className="max-w-6xl mx-auto p-4 grid md:grid-cols-2 gap-8">
@@ -58,7 +74,7 @@ export default function ProductDetails() {
 
                 {/* Thumbnails */}
                 <div className="flex gap-3 mt-4 justify-center">
-                    {images.map((img, i) => (
+                    {images?.map((img, i) => (
                         <div
                             key={i}
                             onClick={() => setSelectedImage(img)}
@@ -78,7 +94,9 @@ export default function ProductDetails() {
             {/* RIGHT: Info */}
             <div className="flex flex-col justify-between">
                 <div>
+
                     <h2 className="text-3xl font-bold mb-2">{name}</h2>
+
                     <p className="text-2xl text-green-600 font-semibold mb-4">
                         ৳ {price}
                     </p>
@@ -127,14 +145,18 @@ export default function ProductDetails() {
                     {/* Description */}
                     <div className="mt-4">
                         <b>Description:</b>
-                        <p className="text-gray-600 mt-1 font-medium">{description}</p>
+                        <p className="text-gray-600 mt-1 font-medium">
+                            {description}
+                        </p>
                     </div>
+
                     {/* Buttons */}
                     <div className="mt-6 flex gap-4">
-                        <button
-                            onClick={() => addToCart(product)} disabled={isPending}
-                            className="flex-1 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition"
-                        >
+
+                        <button 
+                        onClick={() => {
+                            addToCart(product)
+                        }} disabled={isPending} className="flex-1 bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition">
                             {isPending ? "Adding..." : "Add to Cart"}
                         </button>
 
@@ -144,9 +166,9 @@ export default function ProductDetails() {
                         >
                             Order Now
                         </button>
+
                     </div>
                 </div>
-
 
             </div>
         </div>

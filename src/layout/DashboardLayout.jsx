@@ -20,7 +20,7 @@ export default function DashboardLayout() {
   const menuItems = [
     { name: "Edit Banner", path: "/dashboard/edit_banner", icon: <AiFillEdit /> },
     { name: "Products", path: "/dashboard/admin_products", icon: <FaBox /> },
-    { name: "Orders", path: "/dashboard/orders", icon: <FaShoppingCart /> },
+    { name: "Orders", path: "/dashboard/admin_order", icon: <FaShoppingCart /> },
     { name: "Users", path: "/dashboard", icon: <FaUsers /> },
   ];
 

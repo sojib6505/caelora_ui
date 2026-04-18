@@ -13,8 +13,8 @@ export default function AdminRoute({children}) {
         </div>
        )
     }
-    if(!isAdmin){
-      return <Navigate to='/'/>
-    }
+   //  if(!isAdmin){
+   //    return <Navigate to='/'/>
+   //  }
    return children;
 }

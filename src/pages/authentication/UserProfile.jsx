@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import UseUserData from "../../hook/UseUserData";
 import useAxios from "../../hook/UseAxios";
 import UseUploadImage from "../../hook/UseUploadImage";
+import { Link } from "react-router";
 
 export default function UserProfile() {
   const { logOut, user, loading } = UseAuth();
@@ -120,12 +121,12 @@ export default function UserProfile() {
           <li className="flex items-center font-medium gap-2 cursor-pointer">
             <FaUser /> Profile
           </li>
-          <li className="flex items-center font-medium gap-2 cursor-pointer">
+          <Link to="/my_order" className="flex items-center font-medium gap-2 cursor-pointer">
             <FaBox /> Orders
-          </li>
-          <li className="flex items-center font-medium gap-2 cursor-pointer">
+          </Link>
+          {/* <li className="flex items-center font-medium gap-2 cursor-pointer">
             <FaHeart /> Wishlist
-          </li>
+          </li> */}
           <li
             onClick={logOut}
             className="flex  font-medium items-center gap-2 text-red-500 cursor-pointer"

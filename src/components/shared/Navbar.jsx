@@ -19,7 +19,7 @@ export default function Navbar() {
     { name: "HOME", path: "/" },
     { name: "ALL PRODUCTS", path: "/all_products" },
     ...(isAdmin ? [{ name: "DASHBOARD", path: "/dashboard" }] : []),
-    // { name: "LIFESTYLE", path: "/lifestyle" },
+    { name: "My Order", path: "/my_order" },
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);

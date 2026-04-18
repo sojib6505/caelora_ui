@@ -17,7 +17,7 @@ export default function UseAddToCart() {
                 userEmail: user.email,
                 productId: product._id,
                 name: product.name,
-                image: product.images[0],
+                images: product.images[0],
                 price: product.price,
                 quantity: 1
             }
@@ -27,7 +27,7 @@ export default function UseAddToCart() {
         onSuccess: (data) => {
             console.log(data)
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "Your product has been saved",
                 showConfirmButton: false,
