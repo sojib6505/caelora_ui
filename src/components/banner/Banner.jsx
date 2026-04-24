@@ -23,7 +23,7 @@ export default function Banner() {
           </h1>
 
           <p className="text-gray-700 text-lg md:text-xl font-semibold max-w-md px-5 md:px-0 ">
-            Live for Influential and Innovative fashion!..
+            Live for Influential and Innovative fashion!...
           </p>
 
           <Link to='/all_products' className="bg-black cursor-pointer font-bold ml-5 md:ml-0 text-white px-6 py-3 rounded-md w-fit mt-4 hover:bg-gray-800 transition">

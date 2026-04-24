@@ -35,9 +35,9 @@ export default function Users() {
             </tr>
           </thead>
 
-          <tbody className="font-medium text-black">
+          <tbody className="font-medium text-black ">
             {users.map((user, i) => (
-              <tr key={user._id}>
+              <tr key={user._id} >
                 <td>{i + 1}</td>
                 <td>{user.email}</td>
 
@@ -55,7 +55,7 @@ export default function Users() {
                   {user.role !== "admin" && (
                     <button
                       onClick={() => handleMakeAdmin(user._id)}
-                      className="btn btn-sm bg-blue-500 text-white"
+                      className="btn btn-sm text-black cursor-pointer"
                     >
                       Make Admin
                     </button>
