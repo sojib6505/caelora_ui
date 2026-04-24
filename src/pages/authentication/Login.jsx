@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import Swal from "sweetalert2";
 import UseAuth from "../../hook/UseAuth";
 import { useNavigate, Link, useLocation } from "react-router";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 
 export default function Login() {
   const { signIn, signInWithGoogle, resetPassword } = UseAuth();
@@ -90,7 +91,9 @@ export default function Login() {
       });
   };
   return (
-    <div className="md:min-h-screen flex items-center justify-center bg-gray-100 text-gray-800">
+    <>
+     <ScrollToTop/>
+     <div className="md:min-h-screen flex items-center justify-center bg-gray-100 text-gray-800">
       <div className="bg-white py-5 px-8 rounded-2xl shadow-lg w-full max-w-md ">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         {fieldErrors.firebase && (
@@ -171,5 +174,6 @@ export default function Login() {
         </button>
       </div>
     </div>
+    </>
   );
 }

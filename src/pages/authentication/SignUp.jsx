@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import UseAuth from "../../hook/UseAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAxios from "../../hook/UseAxios";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -95,7 +96,9 @@ export default function SignUp() {
   };
 
   return (
-    <div className="md:min-h-screen flex items-center justify-center bg-gray-100 text-gray-800">
+   <>
+    <ScrollToTop/>
+     <div className="md:min-h-screen flex items-center justify-center bg-gray-100 text-gray-800">
       <div className="bg-white py-5 px-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>
 
@@ -216,5 +219,6 @@ export default function SignUp() {
         </Link>
       </div>
     </div>
+   </>
   );
 }
