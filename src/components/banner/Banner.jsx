@@ -1,6 +1,7 @@
 import React from "react";
 import bannerImg from "../../assets/images/model1.png";
 import starImg from "../../assets/icons/Star.png"; 
+import { Link } from "react-router";
 
 export default function Banner() {
   return (
@@ -14,7 +15,7 @@ export default function Banner() {
       <div className="max-w-6xl rounded-2xl mx-auto pt-5  md:pt-20 flex flex-col md:flex-row items-center gap-10">
         {/* Left Text */}
         <div className="flex-1 flex flex-col md:space-y-4">
-          <h1 className="text-4xl px-5 md:px-0  w-sm md:text-6xl font-extrabold leading-tight flex flex-col">
+          <h1 className="text-4xl px-5 md:px-0 text-black  w-sm md:text-6xl font-extrabold leading-tight flex flex-col">
             <span className="bg-white inline px-2 py-1">LET’S</span>
             <span className="inline px-2 py-1">EXPLORE</span>
             <span className="bg-[#EBD96B] inline px-2 py-1">UNIQUE</span>
@@ -25,9 +26,9 @@ export default function Banner() {
             Live for Influential and Innovative fashion!..
           </p>
 
-          <button className="bg-black cursor-pointer font-bold ml-5 md:ml-0 text-white px-6 py-3 rounded-md w-fit mt-4 hover:bg-gray-800 transition">
+          <Link to='/all_products' className="bg-black cursor-pointer font-bold ml-5 md:ml-0 text-white px-6 py-3 rounded-md w-fit mt-4 hover:bg-gray-800 transition">
             Shop Now
-          </button>
+          </Link>
         </div>
 
         {/* Right Image */}

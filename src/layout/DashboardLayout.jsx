@@ -12,6 +12,7 @@ import {
 import UseAuth from "../hook/UseAuth";
 import Navbar from "../components/shared/Navbar";
 import { AiFillEdit } from "react-icons/ai";
+import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 
 export default function DashboardLayout() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,8 @@ export default function DashboardLayout() {
   ];
 
   return (
+   <>
+   <ScrollToTop/>
     <div className="min-h-screen bg-gray-100">
       <Navbar />
 
@@ -37,7 +40,7 @@ export default function DashboardLayout() {
         >
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="text-lg font-bold">Admin Panel</h2>
+            <h2 className="text-lg text-black font-bold">Admin Panel</h2>
 
             {/* Close btn mobile */}
             <button
@@ -49,7 +52,7 @@ export default function DashboardLayout() {
           </div>
 
           {/* Menu */}
-          <ul className="flex-1 p-4 space-y-2 font-medium overflow-y-auto">
+          <ul className="flex-1 p-4 space-y-2 font-medium text-black overflow-y-auto">
             {menuItems.map((item) => (
               <li key={item.name}>
                 <NavLink
@@ -75,7 +78,7 @@ export default function DashboardLayout() {
             <button
               onClick={logOut}
               className="flex items-center justify-center gap-2 w-full p-2 rounded-lg 
-              bg-red-500 text-white hover:bg-red-600 transition"
+              bg-red-500 text-white font-medium hover:bg-red-600 transition"
             >
               <FaSignOutAlt /> Logout
             </button>
@@ -107,5 +110,6 @@ export default function DashboardLayout() {
         </div>
       </div>
     </div>
+   </>
   );
 }

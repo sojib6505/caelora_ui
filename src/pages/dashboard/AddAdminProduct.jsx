@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxios from "../../hook/UseAxios";
 import UseUploadImage from "../../hook/UseUploadImage";
+import Loader from "../../components/loader/Loader";
 
 
 export default function AddAdminProduct() {
@@ -85,10 +86,10 @@ const handleSubmit = async () => {
   }
 };
 
-  if (loading) return <p className="p-4 text-center">Loading...</p>;
+  if (loading) return <Loader/>
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className="p-4 max-w-4xl mx-auto text-black">
       <h2 className="text-2xl font-bold mb-4">
         {productId ? "Edit Product" : "Add New Product"}
       </h2>
@@ -182,7 +183,7 @@ const handleSubmit = async () => {
 
       <button
         onClick={handleSubmit}
-        className="mt-6 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+        className="mt-6 bg-blue-500 text-white font-medium px-6 py-2 rounded hover:bg-blue-600"
       >
         {productId ? "Update Product" : "Add Product"}
       </button>

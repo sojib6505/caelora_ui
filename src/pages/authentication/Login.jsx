@@ -38,7 +38,7 @@ export default function Login() {
           icon: "success",
           confirmButtonColor: "#000",
         });
-        navigate("/");       
+        navigate(from,{replace:true});       
       })
       .catch((error) => {
         setFieldErrors({ firebase: error.message });
@@ -90,8 +90,8 @@ export default function Login() {
       });
   };
   return (
-    <div className="md:min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white py-5 px-8 rounded-2xl shadow-lg w-full max-w-md">
+    <div className="md:min-h-screen flex items-center justify-center bg-gray-100 text-gray-800">
+      <div className="bg-white py-5 px-8 rounded-2xl shadow-lg w-full max-w-md ">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
         {fieldErrors.firebase && (
           <p className="text-red-500 font-medium text-sm mb-4 text-center">
@@ -149,7 +149,7 @@ export default function Login() {
         {/* SignUp */}
         <div className="flex justify-between mt-3 text-sm text-gray-600">
 
-          <Link to="/auth/sign_up" className=" font-bold">
+          <Link to="/auth" className=" font-bold">
             You have no account? <span className="hover:underline md:font-bold">Sign Up</span>
           </Link>
         </div>

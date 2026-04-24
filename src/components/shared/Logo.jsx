@@ -12,7 +12,7 @@ export default function Logo({ imgSize = "w-10 h-10" }) {
       <img src={logoImg} alt="Logo" className={`${imgSize} object-contain`} />
 
       {/* Brand Name */}
-      <span className="font-bold  text-2xl">KAELORA</span>
+      <span className="font-bold text-black text-2xl">KAELORA</span>
     </Link>
   );
 }

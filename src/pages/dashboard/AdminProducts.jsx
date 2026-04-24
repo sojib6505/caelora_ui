@@ -3,6 +3,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { NavLink } from "react-router";
 import Swal from "sweetalert2";
 import useAxios from "../../hook/UseAxios";
+import Loader from "../../components/loader/Loader";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 
 export default function AdminProducts() {
   const axiosSecure = useAxios();
@@ -49,14 +51,16 @@ export default function AdminProducts() {
     });
   };
 
-  if (isLoading) return <p className="p-4 text-center">Loading...</p>;
+  if (isLoading) return <Loader/>;
 
   const filteredProducts = products.filter((p) =>
    p?.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="p-4">
+    <>
+    <ScrollToTop/>
+    <div className="p-4 text-black">
       <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
         <h2 className="text-2xl font-bold">Admin Products</h2>
 
@@ -128,5 +132,6 @@ export default function AdminProducts() {
         </table>
       </div>
     </div>
+    </>
   );
 }

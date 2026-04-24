@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import UseCart from "../../hook/UseCart";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import Loader from "../../components/loader/Loader";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 
 export default function PaymentPage() {
   const location = useLocation();
@@ -109,6 +111,8 @@ export default function PaymentPage() {
   };
 
   return (
+   <>
+   <ScrollToTop/>
     <div className="max-w-6xl mx-auto p-4">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -119,7 +123,7 @@ export default function PaymentPage() {
           <h2 className="text-xl font-bold">Your Products</h2>
 
           {isLoading ? (
-            <p>Loading...</p>
+            <Loader/>
           ) : productList?.length > 0 ? (
             productList.map((item) => (
               <div
@@ -138,12 +142,7 @@ export default function PaymentPage() {
                   </p>
                 </div>
 
-                <Link
-                  to={`/product/${item._id}`}
-                  className="bg-blue-600 text-white px-3 py-1  rounded font-medium text-sm"
-                >
-                  Details
-                </Link>
+               
               </div>
             ))
           ) : (
@@ -151,7 +150,7 @@ export default function PaymentPage() {
           )}
 
           {/* TOTAL */}
-          <div className="bg-gray-100 p-3 rounded mt-4 space-y-1 font-medium">
+          <div className="bg-gray-100 p-3 rounded mt-4 space-y-1 font-medium text-black">
             <p>Subtotal: <b>{productTotal}৳</b></p>
             <p>Delivery: <b>{deliveryCharge}৳</b></p>
             <hr />
@@ -171,10 +170,10 @@ export default function PaymentPage() {
           <h2 className="text-xl font-bold">Checkout</h2>
 
           <input {...register("name")} placeholder="Full Name" className="input w-full" />
-          <input {...register("email")} placeholder="Email" className="input w-full" />
-          <input {...register("phone")} placeholder="Phone" className="input w-full" />
+          <input {...register("email")} placeholder="Email" className="input w-full" required />
+          <input {...register("phone")} placeholder="Phone" className="input w-full" required />
 
-          <input {...register("color")} placeholder="Color" className="input w-full" />
+          {/* <input {...register("color")} placeholder="Color" className="input w-full" /> */}
           <input {...register("size")} placeholder="Size" className="input w-full" />
 
           <select {...register("division")} className="input w-full">
@@ -189,7 +188,7 @@ export default function PaymentPage() {
             <option value="mymensingh">Mymensingh</option>
           </select>
 
-          <textarea {...register("address")} placeholder="Address" className="input w-full" />
+          <textarea {...register("address")} placeholder="Address" className="input w-full" required />
 
           {/* PAYMENT */}
           <label className="flex gap-2">
@@ -197,13 +196,13 @@ export default function PaymentPage() {
             Cash on Delivery
           </label>
 
-          <label className="flex gap-2">
+          {/* <label className="flex gap-2">
             <input type="radio" value="bkash" {...register("paymentMethod")} />
             bKash Payment
-          </label>
+          </label> */}
 
           {payment === "cash" && (
-            <div className="bg-green-100 p-2 rounded">
+            <div className="bg-green-100 p-2 rounded text-black">
               ✔ Cash Selected
               <p>Total: {totalPrice}৳</p>
             </div>
@@ -238,5 +237,6 @@ export default function PaymentPage() {
       )}
 
     </div>
+   </>
   );
 }

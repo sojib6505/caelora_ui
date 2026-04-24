@@ -1,6 +1,7 @@
 import useAxios from "../../hook/UseAxios";
 import Swal from "sweetalert2";
 import useUsers from "../../hook/UseUsers";
+import Loader from "../../components/loader/Loader";
 
 
 export default function Users() {
@@ -17,7 +18,7 @@ export default function Users() {
 //     }
 //   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader/>;
 
   return (
     <div>
@@ -25,7 +26,7 @@ export default function Users() {
 
       <div className="overflow-x-auto bg-white rounded shadow">
         <table className="table w-full">
-          <thead className="bg-gray-200">
+          <thead className="bg-gray-200 text-black">
             <tr>
               <th>#</th>
               <th>Email</th>
@@ -34,7 +35,7 @@ export default function Users() {
             </tr>
           </thead>
 
-          <tbody className="font-medium">
+          <tbody className="font-medium text-black">
             {users.map((user, i) => (
               <tr key={user._id}>
                 <td>{i + 1}</td>

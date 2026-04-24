@@ -4,6 +4,7 @@ import UseCart from "../../hook/UseCart";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import UseAuth from "../../hook/UseAuth";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 
 export default function Cart() {
   const { cart } = UseCart();
@@ -51,6 +52,8 @@ export default function Cart() {
   );
 
   return (
+    <>
+    <ScrollToTop></ScrollToTop>
     <div className="max-w-6xl mx-auto p-5">
 
       {/* Header */}
@@ -82,7 +85,7 @@ export default function Cart() {
 
                 {/* Info */}
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold">
+                  <h2 className="text-lg text-gray-700 font-semibold">
                     {item.name}
                   </h2>
 
@@ -106,13 +109,13 @@ export default function Cart() {
                       onClick={() =>
                         navigate(`/product/${item.productId}`)
                       }
-                      className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                      className="px-3 py-1 text-sm font-medium bg-blue-500 text-white rounded hover:bg-blue-600"
                     >
                       View
                     </button>
 
                     {/* Remove Button */}
-                    <button onClick={() => handleDelete(item._id)} className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600">
+                    <button onClick={() => handleDelete(item._id)} className="px-3 font-medium py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600">
                       Remove
                     </button>
 
@@ -126,7 +129,7 @@ export default function Cart() {
           {/* RIGHT: SUMMARY */}
           <div className="border rounded-xl p-5 h-fit shadow-sm bg-white sticky top-5">
 
-            <h2 className="text-xl font-bold mb-4">
+            <h2 className="text-xl text-gray-700 font-bold mb-4">
               Order Summary
             </h2>
 
@@ -163,5 +166,6 @@ export default function Cart() {
         </div>
       )}
     </div>
+    </>
   );
 }

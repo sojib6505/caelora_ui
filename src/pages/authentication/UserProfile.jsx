@@ -6,6 +6,8 @@ import UseUserData from "../../hook/UseUserData";
 import useAxios from "../../hook/UseAxios";
 import UseUploadImage from "../../hook/UseUploadImage";
 import { Link } from "react-router";
+import Loader from "../../components/loader/Loader";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 
 export default function UserProfile() {
   const { logOut, user, loading } = UseAuth();
@@ -40,8 +42,10 @@ export default function UserProfile() {
     }
   }, [userData, isEdit]);
 
-  if (loading || userLoading)
-    return <p className="text-center mt-20">Loading...</p>;
+  if (loading || userLoading){
+      return <Loader/>;
+  }
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -99,7 +103,9 @@ export default function UserProfile() {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 flex flex-col md:flex-row">
+   <>
+   <ScrollToTop/>
+     <div className="min-h-screen bg-base-200 flex flex-col md:flex-row dark:text-black">
       {/* Sidebar */}
       <div className="w-full md:w-1/4 bg-white shadow-lg p-5">
         <div className="text-center">
@@ -203,5 +209,6 @@ export default function UserProfile() {
         </div>
       </div>
     </div>
+   </>
   );
 }

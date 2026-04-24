@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 import useAxios from "../../hook/UseAxios"
 import { FaArrowRight } from "react-icons/fa";
+import Loader from "../loader/Loader";
 
 
 export default function NewArrivals() {
@@ -21,9 +22,7 @@ export default function NewArrivals() {
     })
     if (isLoading) {
         return (
-            <div className="text-center mt-10">
-                Loading...
-            </div>
+           <Loader/>
         );
     }
 
@@ -72,7 +71,7 @@ export default function NewArrivals() {
                 <div className="text-center flex justify-end mt-8">
                     <button
                         onClick={() => navigate("/all_products")}
-                        className="  font-bold flex gap-2 items-center cursor-pointer"
+                        className="  font-bold flex gap-2 items-center cursor-pointer text-gray-600"
                     >
                         See More
                         <FaArrowRight />

@@ -5,10 +5,11 @@ import { useNavigate } from "react-router";
 
 import UseUploadImage from "../../hook/UseUploadImage";
 import UseAxios from "../../hook/UseAxios";
+import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 export default function EditDiscountBanner() {
   const { register, handleSubmit, reset } = useForm();
   const { uploadImage } = UseUploadImage();
-  const axiosSecure = UseAxios()
+  const axiosSecure = UseAxios();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -44,7 +45,6 @@ export default function EditDiscountBanner() {
 
       // 🔥 redirect to home
       navigate("/");
-
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -52,75 +52,92 @@ export default function EditDiscountBanner() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6">
-      <h2 className="text-2xl font-bold mb-6">Edit Offer Banner</h2>
+    <>
+    <ScrollToTop/>
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 text-black">
+        <h2 className="text-2xl font-bold mb-6">Edit Offer Banner</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block font-medium mb-1">Title</label>
+              <input
+                {...register("title")}
+                className="w-full font-normal border p-2 rounded"
+              />
+            </div>
 
-        {/* GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block font-medium mb-1">Subtitle</label>
+              <input
+                {...register("subtitle")}
+                className="w-full font-normal border p-2 rounded"
+              />
+            </div>
 
-          <div>
-            <label className="block font-medium mb-1">Title</label>
-            <input {...register("title")} className="w-full font-normal border p-2 rounded" />
+            <div>
+              <label className="block font-medium mb-1">Start Date</label>
+              <input
+                type="date"
+                {...register("startDate")}
+                className="w-full font-normal border p-2 rounded"
+              />
+            </div>
+
+            <div>
+              <label className="block font-medium mb-1">End Date</label>
+              <input
+                type="date"
+                {...register("endDate")}
+                className="w-full font-normal border p-2 rounded"
+              />
+            </div>
           </div>
 
+          {/* Description */}
           <div>
-            <label className="block font-medium mb-1">Subtitle</label>
-            <input {...register("subtitle")} className="w-full font-normal border p-2 rounded" />
+            <label className="block font-medium mb-1">Description</label>
+            <textarea
+              {...register("description")}
+              className="w-full font-normal border p-2 rounded"
+            />
           </div>
 
+          {/* Image */}
           <div>
-            <label className="block font-medium mb-1">Start Date</label>
-            <input type="date" {...register("startDate")} className="w-full font-normal border p-2 rounded" />
+            <label className=" font-medium mb-1 flex items-center gap-2">
+              <FaImage /> Banner Image
+            </label>
+
+            <input
+              type="file"
+              accept="image/*"
+              {...register("image")}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) setPreview(URL.createObjectURL(file));
+              }}
+              className="w-full border p-2 rounded"
+            />
           </div>
 
-          <div>
-            <label className="block font-medium mb-1">End Date</label>
-            <input type="date" {...register("endDate")} className="w-full font-normal border p-2 rounded" />
-          </div>
+          {/* Preview */}
+          {preview && (
+            <img src={preview} className="w-full h-52 object-cover rounded" />
+          )}
 
-        </div>
-
-        {/* Description */}
-        <div>
-          <label className="block font-medium mb-1">Description</label>
-          <textarea {...register("description")} className="w-full font-normal border p-2 rounded" />
-        </div>
-
-        {/* Image */}
-        <div>
-          <label className=" font-medium mb-1 flex items-center gap-2">
-            <FaImage /> Banner Image
-          </label>
-
-          <input
-            type="file"
-            accept="image/*"
-            {...register("image")}
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (file) setPreview(URL.createObjectURL(file));
-            }}
-            className="w-full border p-2 rounded"
-          />
-        </div>
-
-        {/* Preview */}
-        {preview && (
-          <img src={preview} className="w-full h-52 object-cover rounded" />
-        )}
-
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-        >
-          <FaSave />
-          {loading ? "Saving..." : "Save Banner"}
-        </button>
-      </form>
-    </div>
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          >
+            <FaSave />
+            {loading ? "Saving..." : "Save Banner"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

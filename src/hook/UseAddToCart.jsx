@@ -2,11 +2,13 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import useAxios from "./UseAxios";
 import Swal from "sweetalert2";
 import UseAuth from "./UseAuth";
+import { useNavigate } from "react-router";
 
 export default function UseAddToCart() {
     const axiosSecure = useAxios()
     const { user } = UseAuth()
      const queryClient = useQueryClient();
+     const navigate = useNavigate();
     //add to card in backend
     const {
         mutate,
@@ -38,7 +40,7 @@ export default function UseAddToCart() {
     });
     const addToCart = (product) => {
         if (!user) {
-            alert("plese Login first")
+            navigate('/auth/sign_in')
             return;
         }
         mutate(product)
