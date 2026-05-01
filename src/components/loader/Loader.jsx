@@ -8,7 +8,7 @@ export default function Loader() {
       <div className="relative flex items-center justify-center">
         
         {/* Glow ring */}
-        <div className="absolute w-32 h-32 rounded-full bg-yellow-300 opacity-30 blur-2xl animate-pulse"></div>
+        <div className="absolute w-32 h-32 rounded-full  blur-2xl animate-pulse"></div>
 
         {/* Rotating logo */}
         <img

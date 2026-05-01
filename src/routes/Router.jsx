@@ -18,6 +18,7 @@ import EditDiscountBanner from "../pages/dashboard/EditDiscountBanner";
 import PaymentPage from "../pages/allProducts/PaymentPage";
 import MyOrder from "../pages/myOrder/MyOrder";
 import AdminOrder from "../pages/dashboard/AdminOrder";
+import ErrorPage from "../components/errorPage/ErrorPage";
 
 
 const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {path:"edit_banner",Component: EditDiscountBanner},
             {path:"admin_order",Component:AdminOrder}
         ]
+    },
+    {
+        path:'*',
+        Component: ErrorPage
     }
 ])
 export default router;

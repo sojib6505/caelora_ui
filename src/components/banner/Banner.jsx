@@ -16,10 +16,10 @@ export default function Banner() {
         {/* Left Text */}
         <div className="flex-1 flex flex-col md:space-y-4">
           <h1 className="text-4xl px-5 md:px-0 text-black  w-sm md:text-6xl font-extrabold leading-tight flex flex-col">
-            <span className="bg-white inline px-2 py-1">LET’S</span>
-            <span className="inline px-2 py-1">EXPLORE</span>
-            <span className="bg-[#EBD96B] inline px-2 py-1">UNIQUE</span>
-            <span className="inline px-2 py-1">CLOTHES.</span>
+            <span className="bg-white inline px-2 py-1 fade-in">LET’S</span>
+            <span className="inline px-2 py-1 fade-in animation-delay-100">EXPLORE</span>
+            <span className="bg-[#EBD96B] inline px-2 py-1 fade-in animation-delay-200">UNIQUE</span>
+            <span className="inline px-2 py-1 fade-in animation-delay-300">CLOTHES.</span>
           </h1>
 
           <p className="text-gray-700 text-lg md:text-xl font-semibold max-w-md px-5 md:px-0 ">

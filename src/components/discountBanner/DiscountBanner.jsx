@@ -30,7 +30,7 @@ export default function DiscountBanner() {
 
   return (
     <section
-      className="relative py-5 md:py-20 flex items-center justify-center"
+      className="relative py-5 md:py-20 flex items-center justify-center fade-in"
       style={{
         background: "linear-gradient(90deg, #F4F6F5 0%, #E0C340 40%)",
       }}

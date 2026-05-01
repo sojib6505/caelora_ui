@@ -1,16 +1,62 @@
-# React + Vite
+# 💃 Kaelora
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Kaelora is a modern e-commerce platform focused on selling women’s dresses online.  
+It helps traditional Facebook-based business owners to transition into a fully functional web platform with better management, user experience, and scalability.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Live Demo
+👉 https://caelora-ui.vercel.app/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📌 About The Project
+Kaelora is built to digitalize a clothing business that was previously run on Facebook.  
+Now it provides a complete online shopping experience including product browsing, cart system, authentication, and admin management.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+- 🛍️ Product Listing System  
+- 🛒 Shopping Cart System  
+- 🔐 User Authentication (Firebase)  
+- 👨‍💼 Admin Dashboard  
+- 💵 Cash on Delivery System  
+- 📦 Order Management  
+- 📱 Fully Responsive UI  
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- React.js
+- Tailwind CSS
+
+**Backend:**
+- Node.js
+- Express.js
+
+**Database:**
+- MongoDB
+
+**Authentication:**
+- Firebase Auth
+
+**Deployment:**
+- Vercel (Frontend)
+
+---
+
+## 🖥️ Backend Server
+
+The backend is built with Node.js and Express.js.  
+It handles API requests, product data, user orders, and admin operations.
+
+MongoDB is used as the database to securely store users, products, and orders.
+
+---
+
+## 👨‍💻 Developer
+Built with ❤️ by Sojib Islam

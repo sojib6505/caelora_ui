@@ -45,7 +45,7 @@ export default function NewArrivals() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5">
                     {products?.slice(0, 4)?.map((product) => (
                         <Link to={`/product/${product._id}`} key={product._id}>
-                            <div className="bg-white shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                            <div className="bg-white shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 product-card-hover fade-in">
 
                                 <img
                                     src={product.images[0]}

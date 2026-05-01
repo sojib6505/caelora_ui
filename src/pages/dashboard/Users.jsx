@@ -24,10 +24,10 @@ export default function Users() {
     <div>
       <h2 className="text-2xl font-bold mb-4">All Users</h2>
 
-      <div className="overflow-x-auto bg-white rounded shadow">
-        <table className="table w-full">
-          <thead className="bg-gray-200 text-black">
-            <tr>
+      <div className="overflow-x-auto bg-white rounded  shadow">
+        <table className="table py-10 w-full">
+          <thead className="bg-gray-200  text-black">
+            <tr >
               <th>#</th>
               <th>Email</th>
               <th>Role</th>

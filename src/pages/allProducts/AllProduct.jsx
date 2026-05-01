@@ -54,7 +54,7 @@ export default function AllProduct() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
             {visibleProducts.map((product) => (
               <div
-                className="bg-white  shadow-md hover:shadow-xl"
+                className="bg-white  shadow-md hover:shadow-xl product-card-hover fade-in"
                 key={product._id}
               >
                 <Link to={`/product/${product._id}`}>
