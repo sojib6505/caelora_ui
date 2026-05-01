@@ -169,14 +169,14 @@ export default function PaymentPage() {
 
           <h2 className="text-xl font-bold">Checkout</h2>
 
-          <input {...register("name")} placeholder="Full Name" className="input w-full" />
-          <input {...register("email")} placeholder="Email" className="input w-full" required />
-          <input {...register("phone")} placeholder="Phone" className="input w-full" required />
+          <input {...register("name")} placeholder="Full Name" className="input w-full p-2" />
+          <input {...register("email")} placeholder="Email" className="input w-full p-2" required />
+          <input {...register("phone")} placeholder="Phone" className="input w-full p-2" required />
 
           {/* <input {...register("color")} placeholder="Color" className="input w-full" /> */}
-          <input {...register("size")} placeholder="Size" className="input w-full" />
+          <input {...register("size")} placeholder="Size" className="input w-full p-2" />
 
-          <select {...register("division")} className="input w-full">
+          <select {...register("division")} className="input w-full p-2">
             <option value="">Select Division</option>
             <option value="dhaka">Dhaka</option>
             <option value="chattogram">Chattogram</option>
@@ -188,7 +188,7 @@ export default function PaymentPage() {
             <option value="mymensingh">Mymensingh</option>
           </select>
 
-          <textarea {...register("address")} placeholder="Address" className="input w-full" required />
+          <textarea {...register("address")} placeholder="Address" className="input w-full p-2" required />
 
           {/* PAYMENT */}
           <label className="flex gap-2">
